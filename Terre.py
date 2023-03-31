@@ -3,7 +3,7 @@ from Pokemon import *
 class typeTerre(Pokemon):
     
     
-    def __init__(self, nom, niveau, defen, pv, atq):
+    def __init__(self, nom, niveau, pv, atq, defen):
         Pokemon.__init__(self)
         self.setNom(nom)
         self.niveau = niveau

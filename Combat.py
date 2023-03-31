@@ -3,6 +3,8 @@ from Eau import *
 from Feu import *
 from Normal import *
 from Terre import *
+from time import *
+import time
 
 class Combat(Pokemon):
     
@@ -49,31 +51,31 @@ class Combat(Pokemon):
     
     
     def typeEtPuissancePokemon1(self):
-        if self.pokemon1.puissanceAttaque == 90:
+        if self.pokemon1.getNom() == "Rhinoféros":
             self.pokemon1.type = "Terre"
             return self.pokemon1.type
-        elif self.pokemon1.puissanceAttaque == 100:
+        elif self.pokemon1.getNom() == "Ronflex":
             self.pokemon1.type = "Normal"
             return self.pokemon1.type
-        elif self.pokemon1.puissanceAttaque == 150:
+        elif self.pokemon1.getNom() == "Arcanin":
             self.pokemon1.type = "Feu"
             return self.pokemon1.type
-        elif self.pokemon1.puissanceAttaque == 220:
+        elif self.pokemon1.getNom() == "Tortank":
             self.pokemon1.type = "Eau"
             return self.pokemon1.type
     
     
     def typeEtPuissancePokemon2(self):
-        if self.pokemon2.puissanceAttaque == 90:
+        if self.pokemon2.getNom() == "Rhinoféros":
             self.pokemon2.type = "Terre"
             return self.pokemon2.type
-        elif self.pokemon2.puissanceAttaque == 100:
+        elif self.pokemon2.getNom() == "Ronflex":
             self.pokemon2.type = "Normal"
             return self.pokemon2.type
-        elif self.pokemon2.puissanceAttaque == 150:
+        elif self.pokemon2.getNom() == "Arcanin":
             self.pokemon2.type = "Feu"
             return self.pokemon2.type
-        elif self.pokemon2.puissanceAttaque == 220:
+        elif self.pokemon2.getNom() == "Tortank":
             self.pokemon2.type = "Eau"
             return self.pokemon2.type
     
@@ -136,13 +138,29 @@ class Combat(Pokemon):
             self.pokemon2.puissanceAttaque = self.pokemon2.puissanceAttaque * 0.75
             self.pokemon1.puissanceAttaque = self.pokemon1.puissanceAttaque * 1
             return self.pokemon1.puissanceAttaque, self.pokemon2.puissanceAttaque
+        
+    def affichageStatsPokemon1(self):
+        print("\n")
+        print("Le nom du premier Pokémon est {} de type {}".format(self.pokemon1.getNom(), self.pokemon1.type))
+        print("{} possède {} points de vie".format((self.pokemon1.getNom()),self.pokemon1.getPV()))
+        print("{} possède {} points d'attaque".format(self.pokemon1.getNom(), self.pokemon1.puissanceAttaque))
+        print("{} possède {} points de défense".format(self.pokemon1.getNom(), self.pokemon1.defense))
+        print("\n")
+
+    def affichageStatsPokemon2(self):
+        print("\n")
+        print("Le nom du deuxième Pokémon est {} de type {}".format(self.pokemon2.getNom(), self.pokemon2.type))
+        print("{} possède {} points de vie".format((self.pokemon2.getNom()),self.pokemon2.getPV()))
+        print("{} possède {} points d'attaque".format(self.pokemon2.getNom(), self.pokemon2.puissanceAttaque))
+        print("{} possède {} points de défense".format(self.pokemon2.getNom(), self.pokemon2.defense))
+        print("\n")
     
     
     
     def degatsPV(self):
         while self.partieFinie == False:
             if self.rounds%2 != 0:
-                self.pokemon2.setPV(self.pokemon2.getPV() - ((self.pokemon1.puissanceAttaque) - (self.pokemon2.defense/2)))
+                self.pokemon2.setPV(self.pokemon2.getPV() - ((self.pokemon1.puissanceAttaque) - (self.pokemon2.defense * 0.25)))
                 self.rounds += 1
                 if self.pokemon2.getPV() > 0:
                     print("{} a attaqué {}, {} a {} points de vie restants".format(self.pokemon1.getNom(), self.pokemon2.getNom(), self.pokemon2.getNom(), self.pokemon2.getPV()))
@@ -152,7 +170,7 @@ class Combat(Pokemon):
                     print("\n")
                     self.pokemonKO()
             elif self.rounds%2 == 0:
-                self.pokemon1.setPV(self.pokemon1.getPV() - ((self.pokemon2.puissanceAttaque) - (self.pokemon1.defense /2 )))
+                self.pokemon1.setPV(self.pokemon1.getPV() - ((self.pokemon2.puissanceAttaque) - (self.pokemon1.defense * 0.25)))
                 self.rounds += 1 
                 if self.pokemon1.getPV() > 0:
                     print("{} a attaqué {}, {} a {} points de vie restants".format(self.pokemon2.getNom(), self.pokemon1.getNom(), self.pokemon1.getNom(), self.pokemon1.getPV()))
@@ -161,6 +179,7 @@ class Combat(Pokemon):
                     print("{} a attaqué {}, {} n'a plus de points de vie restants, il est K.O.".format(self.pokemon2.getNom(), self.pokemon1.getNom(), self.pokemon1.getNom()))
                     print("\n")
                     self.pokemonKO()
+            time.sleep(1)
 
 Ronflex = typeNormal("Ronflex", 100, 461,256,166)
 
@@ -172,10 +191,12 @@ Rhinoféros = typeTerre("Rhinoféros", 100, 351,296,276)
 
 
 combat1 = Combat()
-combat1.valeursCombat(Arcanin, Rhinoféros)
+combat1.valeursCombat(Ronflex, Rhinoféros)
 combat1.typeEtPuissancePokemon1()
 combat1.typeEtPuissancePokemon2()
 combat1.tableDesTypes()
+combat1.affichageStatsPokemon1()
+combat1.affichageStatsPokemon2()
 combat1.degatsPV()
 combat1.choixPerdant()
 combat1.choixVainqueur()
