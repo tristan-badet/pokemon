@@ -6,6 +6,7 @@ from Terre import *
 from time import *
 import time
 
+
 class Combat(Pokemon):
     
     def valeursCombat(self,pokemon1,pokemon2):
@@ -17,6 +18,7 @@ class Combat(Pokemon):
         self.pokemon1.type = ""
         self.pokemon2.type = ""
         self.rounds = 1
+        self.message = ""
 
     def pokemonKO(self):
         if self.pokemon1.getPV() <= 0 or self.pokemon2.getPV() <= 0:
@@ -163,23 +165,21 @@ class Combat(Pokemon):
                 self.pokemon2.setPV(self.pokemon2.getPV() - ((self.pokemon1.puissanceAttaque) - (self.pokemon2.defense * 0.25)))
                 self.rounds += 1
                 if self.pokemon2.getPV() > 0:
-                    print("{} a attaqué {}, {} a {} points de vie restants".format(self.pokemon1.getNom(), self.pokemon2.getNom(), self.pokemon2.getNom(), self.pokemon2.getPV()))
-                    print("\n")
+                    self.message = "{} a attaqué {}, {} a {} points de vie restants".format(self.pokemon1.getNom(), self.pokemon2.getNom(), self.pokemon2.getNom(), self.pokemon2.getPV())
                 elif self.pokemon2.getPV() <= 0:
-                    print("{} a attaqué {}, {} n'a plus de points de vie restants, il est K.O.".format(self.pokemon1.getNom(), self.pokemon2.getNom(), self.pokemon2.getNom()))
-                    print("\n")
+                    self.message = "{} a attaqué {}, {} n'a plus de points de vie restants, il est K.O.".format(self.pokemon1.getNom(), self.pokemon2.getNom(), self.pokemon2.getNom())
                     self.pokemonKO()
             elif self.rounds%2 == 0:
                 self.pokemon1.setPV(self.pokemon1.getPV() - ((self.pokemon2.puissanceAttaque) - (self.pokemon1.defense * 0.25)))
                 self.rounds += 1 
                 if self.pokemon1.getPV() > 0:
-                    print("{} a attaqué {}, {} a {} points de vie restants".format(self.pokemon2.getNom(), self.pokemon1.getNom(), self.pokemon1.getNom(), self.pokemon1.getPV()))
-                    print("\n")
+                    self.message = "{} a attaqué {}, {} a {} points de vie restants".format(self.pokemon2.getNom(), self.pokemon1.getNom(), self.pokemon1.getNom(), self.pokemon1.getPV())
                 elif self.pokemon1.getPV() <= 0:
-                    print("{} a attaqué {}, {} n'a plus de points de vie restants, il est K.O.".format(self.pokemon2.getNom(), self.pokemon1.getNom(), self.pokemon1.getNom()))
-                    print("\n")
+                    self.message = "{} a attaqué {}, {} n'a plus de points de vie restants, il est K.O.".format(self.pokemon2.getNom(), self.pokemon1.getNom(), self.pokemon1.getNom())
                     self.pokemonKO()
             time.sleep(1)
+
+    
 
 Ronflex = typeNormal("Ronflex", 100, 461,256,166)
 

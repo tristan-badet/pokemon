@@ -26,3 +26,5 @@ if choice == 1:
     combat1.choixVainqueur()
     combat1.affichageVainqueur()
     combat1.affichagePerdant()
+else:
+    print("Erreur")
